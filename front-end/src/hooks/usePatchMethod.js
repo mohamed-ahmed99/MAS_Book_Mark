@@ -1,0 +1,62 @@
+import { useState } from "react";
+
+const API_URL = import.meta.env.VITE_API_URL;
+
+export const usePathMethod = () => {
+    
+    const [data, setData] = useState(null);
+    const [status, setStatus] = useState("idle");
+    const [message, setMessage] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    
+        const editData = async (endPoint, body) =>{
+            setLoading(true);
+            try{
+                const response = await fetch(`${API_URL}${endPoint}`, {
+                    method:"PATCH",
+                    headers:{
+                        "Content-Type":"application/json"
+                    },
+                    credentials:"include",
+                    body: body ? JSON.stringify(body) : undefined
+                });
+                const result = await response.json();
+        
+                if(!response.ok){
+                    setStatus("fail");
+                    setData(null);
+                    setMessage(result.message || "Failed to fetch data.");
+                }else{
+                    setStatus("success");
+                    setData(result.data);
+                    setMessage(result.message || "Data fetched successfully.");
+                }
+                
+                // Return success status, data, and message
+                return {
+                    success: response.ok ? "success" : "fail",
+                    data: result.data,
+                    message: result.message
+                };
+            }
+            catch(error){
+                console.error("Error fetching from server:", error);
+                setStatus("fail");
+                setData(null);
+                setMessage(error.message);
+                
+                // Return failure status, null data, and error message
+                return {
+                    success: "fail",
+                    data: null,
+                    message: error.message
+                };
+            }finally{
+                setLoading(false);
+            }
+        }
+
+
+    return {editData, status_e:status, message_e:message, data_e:data, loading_e:loading};
+}
