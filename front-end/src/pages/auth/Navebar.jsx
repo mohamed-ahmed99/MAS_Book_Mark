@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import logoDM from '../../assets/logo/Logo_DM.png';
+import logoWM from '../../assets/logo/Logo_WM.png';
 
 export default function Navebar() {
   const [isDark, setIsDark] = useState(() => {
@@ -33,10 +35,11 @@ export default function Navebar() {
   return (
     <nav className="flex items-center justify-between px-6 py-4 border-b border-border">
       <div className="flex items-center gap-2">
-        <div className="w-8 h-8 rounded-sm bg-text-high flex items-center justify-center text-canvas font-bold font-mono">
-          M
-        </div>
-        <span className="font-geist font-medium text-text-high tracking-tight">Monolith</span>
+        <img 
+          src={isDark ? logoDM : logoWM} 
+          alt="MAS Bookmark Logo" 
+          className="h-8 w-auto scale-[2.2] object-contain"
+        />
       </div>
       <div className="flex items-center gap-4">
         <button 
