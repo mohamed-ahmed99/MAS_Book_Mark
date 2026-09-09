@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import AuthLayout from './pages/auth/layout.jsx';
 import Login from './pages/auth/authPages/Login.jsx';
-import CreateAccount from './pages/auth/authPages/CreateAccount.jsx';
+import CreateAccount from './pages/auth/authPages/CreateAccount/page.jsx';
 
 function App() {
   return (

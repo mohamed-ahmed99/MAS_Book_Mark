@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import Input from "../../../components/Input";
-import Button from "../../../components/Button";
-import { useFormDataMethod } from "../../../hooks/useFormDataMethod";
-import { useGlobalData } from "../../../hooks/useStore";
-import ErrorMessage from "./CreateAccountComponents/ErrorMessage";
-import SuccessMessage from "./CreateAccountComponents/SuccessMessage";
-import PrivacyMessage from "./CreateAccountComponents/PrivacyMessage";
-import GenderSelect from "./CreateAccountComponents/GenderSelect";
-import ProfilePhotoUpload from "./CreateAccountComponents/ProfilePhotoUpload";
+import Input from "../../../../components/Input";
+import Button from "../../../../components/Button";
+import { useFormDataMethod } from "../../../../hooks/useFormDataMethod";
+import { useGlobalData } from "../../../../hooks/useStore";
+import ErrorMessage from "./ErrorMessage";
+import SuccessMessage from "./SuccessMessage";
+import PrivacyMessage from "./PrivacyMessage";
+import GenderSelect from "./GenderSelect";
+import ProfilePhotoUpload from "./ProfilePhotoUpload";
 
 const INITIAL_FORM = {
   username: "",
@@ -30,19 +30,15 @@ export default function CreateAccount() {
   const [localError, setLocalError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  const { sendFormData, resetFormData, message_fd, status_fd, loading_fd } = useFormDataMethod();
+  const { sendFormData, message_fd, status_fd, loading_fd } = useFormDataMethod();
 
   const handleChange = (e) => {
     setLocalError("");
-    setSuccessMessage("");
-    resetFormData();
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleFileChange = (e) => {
     setLocalError("");
-    setSuccessMessage("");
-    resetFormData();
     const file = e.target.files?.[0];
     if (file) {
       setProfilePicture(file);
@@ -164,7 +160,10 @@ export default function CreateAccount() {
             <GenderSelect value={formData.gender} onChange={handleChange} />
           </div>
 
-          <ProfilePhotoUpload previewUrl={previewUrl} handleFileChange={handleFileChange} />
+          <ProfilePhotoUpload
+            previewUrl={previewUrl}
+            handleFileChange={handleFileChange}
+          />
 
           <Button
             type="submit"
