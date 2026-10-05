@@ -2,13 +2,15 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import AuthLayout from './pages/auth/layout.jsx';
 import Login from './pages/auth/authPages/login/page.jsx';
 import CreateAccount from './pages/auth/authPages/CreateAccount/page.jsx';
+import MainPage from './pages/mainPage/page.jsx';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
 
-        <Route path="/" element={<h1 className="text-4xl font-bold text-text-high bg-elevated p-4">MAS_ Bookmark</h1>} />
+        {/* Main app */}
+        <Route path="/" element={<MainPage />} />
 
         {/* Auth Routes */}
         <Route path="/auth" element={<AuthLayout />}>
@@ -18,7 +20,7 @@ function App() {
 
 
 
-        <Route path="*" element={<Navigate to="/auth" replace />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
 
 
 

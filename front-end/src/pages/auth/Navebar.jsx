@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import logoDM from '../../assets/logo/Logo_DM.png';
 import logoWM from '../../assets/logo/Logo_WM.png';
+import { Link } from 'react-router-dom';
 
 export default function Navebar() {
   const [isDark, setIsDark] = useState(() => {
@@ -34,13 +35,13 @@ export default function Navebar() {
 
   return (
     <nav className="flex items-center justify-between px-6 py-4 border-b border-border">
-      <div className="flex items-center gap-2">
+      <Link to="/" className="flex items-center gap-2">
         <img 
           src={isDark ? logoDM : logoWM} 
           alt="MAS Bookmark Logo" 
           className="h-8 w-auto scale-[2.2] object-contain"
         />
-      </div>
+      </Link>
       <div className="flex items-center gap-4">
         <button 
           onClick={() => setIsDark(!isDark)}
