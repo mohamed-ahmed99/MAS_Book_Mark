@@ -53,7 +53,7 @@ export const login = asyncHandler(async (req, res) => {
 
     // 8. set cookie
     const isProduction = process.env.NODE_ENV === "production"
-    res.cookie("TP-Code-Auth", token, {
+    res.cookie("MASproAuth", token, {
         httpOnly: true,
         secure: isProduction,
         sameSite: isProduction ? "none" : "lax",

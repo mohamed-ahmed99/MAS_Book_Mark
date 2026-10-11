@@ -10,6 +10,7 @@ import { connectDB } from './config/mongooDB.js'
 
 // import routes
 import authRouter from './routes/auth.routes.js'
+import websiteRouter from './routes/website.routes.js'
 
 
 const app = express() 
@@ -46,6 +47,7 @@ app.get('/', (req, res) => {
 
 /////////////////////// use routes
 app.use('/api/v1/auth', authRouter)
+app.use('/api/v1/websites', websiteRouter)
 
 
 // not found routes
