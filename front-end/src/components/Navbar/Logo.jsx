@@ -22,7 +22,7 @@ export default function Logo({ isDark }) {
       <img
         src={isDark ? logoDM : logoWM}
         alt="MAS Bookmark logo"
-        className="h-8 w-auto scale-[1.8] sm:scale-[2.2] object-contain"
+        className="h-6 w-auto scale-[1.8] sm:scale-[2.2] object-contain"
       />
 
       {/* Site name — hidden on mobile */}
