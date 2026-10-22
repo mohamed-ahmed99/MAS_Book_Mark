@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -15,9 +14,8 @@ export const useGetMethod = () => {
 
 
 
-        const getData = async (endPoint) =>{
-
-            if (!endPoint) throw new Error("No URL to Get Data")
+    const getData = useCallback(async (endPoint) => {
+        if (!endPoint) throw new Error("No URL to Get Data");
 
             // clear previous data
             setData(null);
@@ -70,7 +68,7 @@ export const useGetMethod = () => {
             }finally{
                 setLoading(false);
             }
-        }
+        }, []);
         
 
     return {getData, status_g:status, message_g:message, data_g:data, loading_g:loading, action_g:action};

@@ -3,6 +3,7 @@ import Navbar  from '../../components/Navbar/index';
 import Sidebar from '../../components/Sidebar';
 import Topbar  from './Topbar';
 import AddWebsiteModal from './AddWebsiteModal';
+import WebsitesSection from './WebsitesSection';
 
 /* ─────────────────────────────────────────────
    MainPage  (shell / layout)
@@ -14,7 +15,7 @@ import AddWebsiteModal from './AddWebsiteModal';
    │ Sidebar │                                               │
    │ (fixed  │   <main> content area                        │
    │  left)  │   ├─ <Topbar /> (page-level actions)          │
-   │         │   └─ child content / bookmark grids           │
+   │         │   └─ <WebsitesSection /> (pinned & all sites) │
    └─────────┴───────────────────────────────────────────────┘
 
    Offset classes:
@@ -26,6 +27,10 @@ export default function MainPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   /* Add website modal open state */
   const [isAddWebsiteOpen, setIsAddWebsiteOpen] = useState(false);
+  /* Real-time search query from Navbar */
+  const [searchQuery, setSearchQuery] = useState('');
+  /* Counter to trigger re-fetch when new website is added */
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   const handleAddWebsite = () => {
     setIsAddWebsiteOpen(true);
@@ -33,6 +38,8 @@ export default function MainPage() {
 
   const handleWebsiteAdded = (newWebsite) => {
     console.log('Website added successfully:', newWebsite);
+    // Trigger re-fetch of website list in WebsitesSection
+    setRefreshTrigger((prev) => prev + 1);
   };
 
   const handleArrange = () => {
@@ -45,7 +52,7 @@ export default function MainPage() {
       {/* ── Fixed top Navbar ── */}
       <Navbar
         onSidebarOpen={() => setSidebarOpen(true)}
-        onSearch={(q) => console.log('search:', q)} /* wire to real search later */
+        onSearch={(q) => setSearchQuery(q)}
       />
 
       {/* ── Fixed left Sidebar ── */}
@@ -66,7 +73,13 @@ export default function MainPage() {
           onArrange={handleArrange}
         />
 
-        {/* Page sections will go here as child components */}
+        {/* ── Websites Section (Pinned & Regular Grid) ── */}
+        <WebsitesSection
+          searchQuery={searchQuery}
+          onAddWebsite={handleAddWebsite}
+          onClearSearch={() => setSearchQuery('')}
+          refreshTrigger={refreshTrigger}
+        />
         
       </main>
 
@@ -80,3 +93,4 @@ export default function MainPage() {
     </div>
   );
 }
+
