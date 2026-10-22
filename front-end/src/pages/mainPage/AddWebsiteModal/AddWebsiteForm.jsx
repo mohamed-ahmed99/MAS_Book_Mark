@@ -2,7 +2,7 @@ import React, { useState, useId } from 'react';
 import { useFormDataMethod } from '../../../hooks/useFormDataMethod';
 import Button from '../../../components/Button';
 import PhotoUploadSection from './PhotoUploadSection';
-import FavoriteToggle from './FavoriteToggle';
+import PinToggle from './PinToggle';
 
 /* ─────────────────────────────────────────────
    Extract domain helper (replicates backend extractDomain)
@@ -39,7 +39,7 @@ export default function AddWebsiteForm({ onSuccess, onCancel }) {
   const [name, setName] = useState('');
   const [url, setUrl] = useState('');
   const [photoFile, setPhotoFile] = useState(null);
-  const [isFavourite, setIsFavourite] = useState(false);
+  const [isPinned, setIsPinned] = useState(false);
 
   // Field validation error states
   const [errors, setErrors] = useState({});
@@ -111,7 +111,7 @@ export default function AddWebsiteForm({ onSuccess, onCancel }) {
     const formData = new FormData();
     formData.append('name', name.trim());
     formData.append('url', finalUrl);
-    formData.append('isFavourite', String(isFavourite));
+    formData.append('isPinned', String(isPinned));
 
     if (photoFile) {
       formData.append('photo', photoFile);
@@ -224,10 +224,10 @@ export default function AddWebsiteForm({ onSuccess, onCancel }) {
         onPhotoRemove={() => setPhotoFile(null)}
       />
 
-      {/* ── Favourite Pin Checkbox ── */}
-      <FavoriteToggle
-        isFavourite={isFavourite}
-        onChange={(checked) => setIsFavourite(checked)}
+      {/* ── Pin Website Checkbox ── */}
+      <PinToggle
+        isPinned={isPinned}
+        onChange={(checked) => setIsPinned(checked)}
       />
 
       {/* ── Action Buttons using shared Button component ── */}

@@ -51,12 +51,13 @@ export const addWebsite = asyncHandler(async (req, res) => {
         }
     }
 
-    // Parse boolean for isFavourite
-    const isFavourite = req.body.isFavourite === true || req.body.isFavourite === 'true';
+    // Parse boolean for isPinned (support isPinned with fallback for isFavourite)
+    const isPinned = req.body.isPinned === true || req.body.isPinned === 'true';
 
-    // Calculate order (append to the end of user's list)
+    // Calculate order independently for pinned vs unpinned websites
     const lastWebsite = await Website
-        .findOne({ user: req.user._id }).sort({ order: -1 });
+        .findOne({ user: req.user._id, isPinned })
+        .sort({ order: -1 });
 
     const order = lastWebsite ? lastWebsite.order + 1 : 0;
 
@@ -67,13 +68,25 @@ export const addWebsite = asyncHandler(async (req, res) => {
         url: websiteUrl,
         domain,
         photo: photoData,
-        isFavourite,
+        isPinned,
         order
     });
 
     return res.status(201).json({
         status: 'success',
         message: 'Website added successfully',
-        data: { website: newWebsite }
+        data: {
+            website: {
+                _id: newWebsite._id,
+                name: newWebsite.name,
+                url: newWebsite.url,
+                domain: newWebsite.domain,
+                photo: {
+                    url: newWebsite.photo?.url || ''
+                },
+                isPinned: newWebsite.isPinned,
+                order: newWebsite.order
+            }
+        }
     });
 });

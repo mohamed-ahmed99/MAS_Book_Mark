@@ -67,11 +67,7 @@ export default function MainPage() {
         />
 
         {/* Page sections will go here as child components */}
-        <div className="p-4 md:p-6 flex-1">
-          <p className="text-text-medium font-mono text-xs tracking-widest uppercase">
-            — ready
-          </p>
-        </div>
+        
       </main>
 
       {/* ── Add Website Modal Dialog ── */}

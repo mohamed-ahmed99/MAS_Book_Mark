@@ -26,9 +26,10 @@ const websiteSchema = new mongoose.Schema(
             url: { type: String, default: '' },
             public_id: { type: String, default: '' },
         },
-        isFavourite: {
+        isPinned: {
             type: Boolean,
             default: false,
+            index: true,
         },
         order: {
             type: Number,
@@ -41,6 +42,7 @@ const websiteSchema = new mongoose.Schema(
 );
 
 // Indexes for faster lookups and ordering
+websiteSchema.index({ user: 1, isPinned: -1, order: 1 });
 websiteSchema.index({ user: 1, order: 1 });
 websiteSchema.index({ user: 1, domain: 1 });
 websiteSchema.index({ user: 1, createdAt: -1 });
