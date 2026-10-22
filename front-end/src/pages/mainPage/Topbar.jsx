@@ -64,7 +64,7 @@ export default function Topbar({
     <header
       className="
         w-full
-        border-b border-border bg-canvas/95 backdrop-blur-xs
+        border-b border-border bg-transparent backdrop-blur-xs
         px-4 py-3 md:px-6 md:py-3.5
         transition-colors duration-150
       "
