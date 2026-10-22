@@ -10,6 +10,8 @@ export const requestedFields = [
 export const addWebsite = asyncHandler(async (req, res) => {
     const { name, url, link } = req.body;
     const websiteUrl = (url || link || '').trim();
+
+    // Extract domain from url
     const domain = extractDomain(websiteUrl);
 
     // Check uploaded photo file (optional if user sends one)
@@ -27,14 +29,8 @@ export const addWebsite = asyncHandler(async (req, res) => {
             url: uploadedPhoto.secure_url,
             public_id: uploadedPhoto.public_id
         };
-    } else if (typeof req.body.photo === 'string' && req.body.photo.trim() !== '') {
-        // 2. User provided a photo URL
-        photoData = {
-            url: req.body.photo.trim(),
-            public_id: ''
-        };
     } else if (domain) {
-        // 3. User didn't send any photo: fetch logo from URL/domain and save to Cloudinary
+        // 2. User didn't send any photo: fetch logo from URL/domain and save to Cloudinary
         const logoUrl = `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
         try {
             const logoRes = await fetch(logoUrl);

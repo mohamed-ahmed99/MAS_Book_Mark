@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Navbar  from '../../components/Navbar/index';
 import Sidebar from '../../components/Sidebar';
 import Topbar  from './Topbar';
+import AddWebsiteModal from './AddWebsiteModal';
 
 /* ─────────────────────────────────────────────
    MainPage  (shell / layout)
@@ -23,9 +24,15 @@ import Topbar  from './Topbar';
 export default function MainPage() {
   /* Sidebar open state – used only on mobile */
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  /* Add website modal open state */
+  const [isAddWebsiteOpen, setIsAddWebsiteOpen] = useState(false);
 
   const handleAddWebsite = () => {
-    console.log('Add website triggered');
+    setIsAddWebsiteOpen(true);
+  };
+
+  const handleWebsiteAdded = (newWebsite) => {
+    console.log('Website added successfully:', newWebsite);
   };
 
   const handleArrange = () => {
@@ -66,6 +73,13 @@ export default function MainPage() {
           </p>
         </div>
       </main>
+
+      {/* ── Add Website Modal Dialog ── */}
+      <AddWebsiteModal
+        isOpen={isAddWebsiteOpen}
+        onClose={() => setIsAddWebsiteOpen(false)}
+        onSuccess={handleWebsiteAdded}
+      />
 
     </div>
   );

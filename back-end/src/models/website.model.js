@@ -10,7 +10,6 @@ const websiteSchema = new mongoose.Schema(
         },
         name: {
             type: String,
-            required: [true, 'Website name is required'],
             trim: true,
         },
         url: {

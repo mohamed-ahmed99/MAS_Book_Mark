@@ -27,6 +27,7 @@
     --text-medium: #525252;
     --text-disabled: #737373;
   }
+
   .dark {
     --canvas: #0A0A0A;
     --elevated: #171717;
@@ -44,5 +45,30 @@
     margin: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ── Modal & Form Technical Minimalist Scrollbar ── */
+  .modal-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-color) transparent;
+  }
+
+  .modal-scrollbar::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  .modal-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .modal-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+    transition: background-color 0.15s ease;
+  }
+
+  .modal-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--border-hover);
   }
 }
